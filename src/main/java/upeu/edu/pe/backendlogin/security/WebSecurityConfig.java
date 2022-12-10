@@ -45,6 +45,9 @@ public class WebSecurityConfig {
 				// API PRIVADAS
 //				.antMatchers(HttpMethod.GET, "/api/categoria/get-all").access("hasAuthority('ADMIN_ROLE') or hasAuthority('USER_ROLE') ")
 				.antMatchers(HttpMethod.GET, "/api/categoria/get-all").hasAuthority("ADMIN_ROLE")
+				.antMatchers(HttpMethod.POST, "/api/categoria/create-categoria").hasAuthority("ADMIN_ROLE")
+				.antMatchers(HttpMethod.PUT, "/api/categoria/update-categoria/**").hasAuthority("ADMIN_ROLE")
+				.antMatchers(HttpMethod.DELETE, "/api/categoria/delete-categoria/**").hasAuthority("ADMIN_ROLE")
 				.antMatchers(HttpMethod.GET, "/api/categoria/get-categoria/**").hasAuthority("USER_ROLE")
 				.anyRequest()
 				.authenticated()
@@ -57,15 +60,6 @@ public class WebSecurityConfig {
 				.build();
 	}
 	
-//	@Bean
-//	UserDetailsService userDetailService() {
-//		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//		manager.createUser(User.withUsername("admin")
-//				.password(passwordEncoder().encode("admin"))
-//				.roles()
-//				.build());
-//		return manager;
-//	}
 	
 	@Bean
 	AuthenticationManager authManager(HttpSecurity http) throws Exception{
